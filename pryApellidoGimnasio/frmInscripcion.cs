@@ -50,7 +50,7 @@ namespace pryApellidoGimnasio
             rbtTarjeta.Checked = true;
 
             cboCuotas.SelectedIndex = -1;
-            cboCuotas.Enabled = false;
+            cboCuotas.Enabled = rbtTarjeta.Checked;
 
             btnCalcular.Enabled = false;
 
@@ -66,11 +66,14 @@ namespace pryApellidoGimnasio
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-
+            // So rbtTarjeta esta marcado, cboCuotas queda habilitado, sino queda deshabilitado
+            cboCuotas.Enabled = rbtTarjeta.Checked;
         }
 
         private void btnCalcular_Click(object sender, EventArgs e)
         {
+
+            // DECLARACION DE VARIABLES
             string nombre;
             int edad;
             int meses;
@@ -82,7 +85,112 @@ namespace pryApellidoGimnasio
             decimal valorCuota;
 
 
+            nombre = txtNombre.Text;
+            edad = int.Parse(txtEdad.Text);
+            meses = int.Parse(txtMeses.Text);
+
+
+            if (edad < EDAD_MINIMA)
+            {
+                MessageBox.Show("La edad minima para inscribirse es de 14 años, intentelo de nuevo");
+                return;
+            }
+
+            if (meses < 1 || meses > 12)
+            {
+                MessageBox.Show("La cantidad de meses debe estar entre 1 y 12, intentelo de nuevo");
+                return;
+
+                // BARRAS || = UTILIZADAS P DETECTAR SI ESTA POR DEBAJO DE 1 O POR ENCIMA DE 12
+
+            }
+
+
+            // GUARDA EN UNA VARIABLE LLAMADA "PLAN" EL TEXTO SELECCIONADO EN EL COMBOBOX
+            string plan = cboPlan.Text;
+
+
+            // SWITCH (PLAN) = PARA VER QUE PLAN SELECCIONO EL USUARIO Y ASIGNAR EL PRECIO MENSUAL
+            // EJ: PLAN = "FUNCIONAL" -> precioMensual = PRECIO_FUNCIONAL ($18000)
+
+            switch (plan)
+            {
+                case "Musculación":
+                    precioMensual = PRECIO_MUSCULACION;
+                    break;
+
+                case "Funcional":
+                    precioMensual = PRECIO_FUNCIONAL;
+                    break;
+
+                case "Natacion":
+                    precioMensual = PRECIO_NATACION;
+                    break;
+
+                // SI NINGUNA DE LAS OPCIONES COINCIDE:
+
+                default:
+                    MessageBox.Show("El plan seleccionado no es valido, intentelo de nuevo");
+                    return;
+            }
+
+            //+= -> sumarle algo a lo que ya tiene
+            if (chkCasillero.Checked) precioMensual += PRECIO_CASILLERO;
+
+            // SUBTOTAL: variable que guarda el precio antes de aplicar descuentos/recargos
+            subtotal = precioMensual * meses;
+
+            // PORCENTAJE DE DESCUENTO: variable que guarda el porcentaje de descuento a aplicar
+            porcentajeDescuento = 0;
+
+            // PORCENTAJE DE AJUSTE: variable que guarda el recargo a aplicar
+            porcentajeAjuste = 0;
+
+
+            // APLICAR DESCUENTOS SEGUN EDAD
+            if (edad < 18)
+            {
+                porcentajeDescuento += DESCUENTO_MENOR;
+            }
+            else if (edad > 65)
+            {
+                porcentajeDescuento += DESCUENTO_MAYOR_65;
+            }
+
+            // // APLICAR DESCUENTOS SEGUN ESTUDIANTE
+
+            if (chkEstudiante.Checked)
+            {
+                porcentajeDescuento += DESCUENTO_ESTUDIANTE;
+            }
+
+            //  // APLICAR DESCUENTOS SEGUN FORMA DE PAGO (EFECTIVO O TARJETA) Y CANTIDAD DE CUOTAS
+            if (rbtEfectivo.Checked)
+            {
+                porcentajeDescuento += DESCUENTO_EFECTIVO;
+            }
+
+            if (rbtTarjeta.Checked)
+            {
+                if (cboCuotas.Text == "3")
+                    porcentajeAjuste += RECARGO_3_CUOTAS;
+                else if (cboCuotas.Text == "6")
+                    porcentajeAjuste += RECARGO_6_CUOTAS;
+            }    
 
         }
+
+        private void cboCuotas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            EstadoInicial();
+        }
+
+        // falta calcular el total y mostrarlo en un mensaje :)
     }
+
 }

@@ -242,6 +242,7 @@
             this.cboCuotas.Name = "cboCuotas";
             this.cboCuotas.Size = new System.Drawing.Size(39, 21);
             this.cboCuotas.TabIndex = 19;
+            this.cboCuotas.SelectedIndexChanged += new System.EventHandler(this.cboCuotas_SelectedIndexChanged);
             // 
             // lblCuotas
             // 
@@ -270,10 +271,10 @@
             this.btnLimpiar.TabIndex = 22;
             this.btnLimpiar.Text = "Limpiar";
             this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // frmInscripcion
             // 
-            this.AcceptButton = this.btnCalcular;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 473);
