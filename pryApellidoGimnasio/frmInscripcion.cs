@@ -18,8 +18,11 @@ namespace pryApellidoGimnasio
 
         const decimal PRECIO_CASILLERO = 3000m;
 
+        // explicar
         const int EDAD_MINIMA = 14;
 
+
+        // La m indica que es un numero decimal.
         const decimal DESCUENTO_MENOR = 0.25m;
         const decimal DESCUENTO_MAYOR_65 = 0.30m;
         const decimal DESCUENTO_ESTUDIANTE = 0.15m;
@@ -193,7 +196,7 @@ namespace pryApellidoGimnasio
             // APLICAR DESCUENTOS SEGUN EDAD
             if (edad < 18)
             {
-                porcentajeDescuento += DESCUENTO_MENOR;
+                porcentajeDescuento = DESCUENTO_MENOR;
             }
             else
             {
@@ -203,102 +206,90 @@ namespace pryApellidoGimnasio
                 }
                 else
                 {
-                    if (chkEstudiante.Checked)
+                    porcentajeDescuento = 0;
+                }    
+
+                // APLICAR DESCUENTOS SEGUN ESTUDIANTE
+
+                if (chkEstudiante.Checked)
+                {
+                    porcentajeDescuento += DESCUENTO_ESTUDIANTE;
+                }
+
+                //  // APLICAR DESCUENTOS SEGUN FORMA DE PAGO (EFECTIVO O TARJETA) Y CANTIDAD DE CUOTAS
+                if (rbtEfectivo.Checked)
+                {
+                    porcentajeAjuste = -DESCUENTO_EFECTIVO;
+                    // al ser un *descuento* del 10%, es tratado como negativo
+                }
+
+                else
+                {
+                    int cuotas = int.Parse(cboCuotas.Text);
+
+                    if (cuotas == 1)
                     {
-                        porcentajeDescuento = DESCUENTO_ESTUDIANTE;
+                        porcentajeAjuste = 0;
                     }
-                    else
+                    else if (cuotas == 3)
                     {
-                        porcentajeDescuento = 0;
-                    } 
-                    
+                        porcentajeAjuste = RECARGO_3_CUOTAS;
+                    }
+                    else if (cuotas == 6)
+                    {
+                        porcentajeAjuste = RECARGO_6_CUOTAS;
+                    }
                 }
+
+                // Aplicar descuento
+                decimal montoDescuento = subtotal * porcentajeDescuento;
+                decimal subtotalConDescuento = subtotal - montoDescuento;
+
+                // Aplicar recargo
+                decimal montoAjuste = subtotalConDescuento * porcentajeAjuste;
+                total = subtotalConDescuento + montoAjuste;
+
+                // OPERADOR TERNARIO:
+                string categoria = edad < 18 ? "Menor" : "Mayor";
+
+                string formaPago = rbtEfectivo.Checked
+                    ? "Efectivo"
+                    : "Tarjeta en " + cboCuotas.Text + " cuotas";
+
+                // Calculo de la cuota
+                int cantidadCuotas = rbtEfectivo.Checked ? 1 : int.Parse(cboCuotas.Text);
+                valorCuota = total / cantidadCuotas;
+
+                // SOCIO - tipo de dato creado
+
+                SOCIO socio;
+
+                socio.nombre = nombre;
+                socio.edad = edad;
+                socio.categoria = categoria;
+                socio.plan = plan;
+                socio.horario = horario;
+                socio.meses = meses;
+                socio.formaPago = formaPago;
+                socio.total = total;
+                socio.valorCuota = valorCuota;
+
+                // Mostrar total en un mensaje
+                MessageBox.Show("Cliente: " + socio.nombre +
+                    "\nEdad: " + socio.edad +
+                    "\nCategoria: " + socio.categoria +
+                    "\nPlan: " + socio.plan +
+                    "\nHorario: " + socio.horario +
+                    "\nMeses: " + socio.meses +
+                    "\nForma de pago: " + socio.formaPago +
+                    "\nSubtotal: $" + subtotal +
+                    "\nDescuento: $" + montoDescuento +
+                    "\nAjuste: $" + montoAjuste +
+                    "\nTotal: $" + socio.total +
+                    "\nValor de la cuota: $" + socio.valorCuota,
+                    "Resumen de Inscripción"
+                );
             }
-            
-            // // APLICAR DESCUENTOS SEGUN ESTUDIANTE
-
-            if (chkEstudiante.Checked)
-            {
-                porcentajeDescuento += DESCUENTO_ESTUDIANTE;
-            }
-
-            //  // APLICAR DESCUENTOS SEGUN FORMA DE PAGO (EFECTIVO O TARJETA) Y CANTIDAD DE CUOTAS
-            if (rbtEfectivo.Checked)
-            {
-                porcentajeAjuste = -DESCUENTO_EFECTIVO;
-                // al ser un descuento del 10%, es tratado como negativo
-            }
-
-            else
-            {
-                int cuotas = int.Parse(cboCuotas.Text);
-
-                if (cuotas == 1)
-                {
-                    porcentajeAjuste = 0;
-                }
-                else if (cuotas == 3)
-                {
-                    porcentajeAjuste = RECARGO_3_CUOTAS;
-                }
-                else if (cuotas == 6)
-                {
-                    porcentajeAjuste = RECARGO_6_CUOTAS;
-                }
-            }    
-
-            // Aplicar descuento
-            decimal montoDescuento = subtotal * porcentajeDescuento;
-            decimal subtotalConDescuento = subtotal - montoDescuento;
-
-            // Aplicar recargo
-            decimal montoAjuste = subtotalConDescuento * porcentajeAjuste;
-
-            // Total final
-            total = subtotalConDescuento + montoAjuste;
-
-            string categoria = edad < 18 ? "Menor" : "Mayor";
-
-            string formaPago = rbtEfectivo.Checked
-                ? "Efectivo"
-                : "Tarjeta en " + cboCuotas.Text + " cuotas";
-
-            // Calculo de la cuota
-            int cantidadCuotas = rbtEfectivo.Checked ? 1 : int.Parse(cboCuotas.Text);
-            valorCuota = total / cantidadCuotas;
-
-           // SOCIO - tipo de dato creado
-                    
-            SOCIO socio;
-
-            socio.nombre = nombre;
-            socio.edad = edad;
-            socio.categoria = categoria;
-            socio.plan = plan;
-            socio.horario = horario;
-            socio.meses = meses;
-            socio.formaPago = formaPago;
-            socio.total = total;
-            socio.valorCuota = valorCuota;
-             
-            
-            
-
-            // Mostrar total en un mensaje
-            MessageBox.Show("Cliente: " + socio.nombre +
-                "\nEdad: " + socio.edad +
-                "\nCategoria: " + socio.categoria +
-                "\nPlan: " + socio.plan +
-                "\nHorario: " + socio.horario +
-                "\nMeses: " + socio.meses +
-                "\nForma de pago: " + socio.formaPago +
-                "\nSubtotal: $" + subtotal +
-                "\nDescuento: $" + montoDescuento +
-                "\nAjuste: $" + montoAjuste +
-                "\nTotal: $" + socio.total +
-                "\nValor de la cuota: $" + socio.valorCuota,
-                "Resumen de Inscripción"
-            );
 
         }
         private void cboCuotas_SelectedIndexChanged(object sender, EventArgs e)
