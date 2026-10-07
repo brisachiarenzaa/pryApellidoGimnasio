@@ -305,8 +305,8 @@ namespace pryApellidoGimnasio
         private void txtNombre_TextChanged(object sender, EventArgs e)
         {
             btnCalcular.Enabled = txtNombre.Text != ""&&
-                                  txtEdad.Text != " " &&
-                                  txtMeses.Text != " ";
+                                  txtEdad.Text != "" &&
+                                  txtMeses.Text != "";
 
         }
     }
