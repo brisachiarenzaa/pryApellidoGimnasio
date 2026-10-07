@@ -14,7 +14,7 @@ namespace pryApellidoGimnasio
     {
         const decimal PRECIO_MUSCULACION = 15000m;
         const decimal PRECIO_FUNCIONAL = 18000m;
-        const decimal PRECIO_NATACION = 25000m;
+        const decimal PRECIO_NATACION = 22000m;
 
         const decimal PRECIO_CASILLERO = 3000m;
 
@@ -27,6 +27,20 @@ namespace pryApellidoGimnasio
         const decimal DESCUENTO_EFECTIVO = 0.10m;
         const decimal RECARGO_3_CUOTAS = 0.10m;
         const decimal RECARGO_6_CUOTAS = 0.20m;
+
+        struct SOCIO
+        {
+            public string nombre;
+            public int edad;
+            public string categoria;
+            public string plan;
+            public string horario;
+            public int meses;
+            public string formaPago;
+            public decimal total;
+            public decimal valorCuota;
+
+        }
 
 
         public frmInscripcion()
@@ -46,11 +60,11 @@ namespace pryApellidoGimnasio
             txtMeses.Text = "1";
             chkCasillero.Checked = false;
 
-            rbtEfectivo.Checked = false;
-            rbtTarjeta.Checked = true;
+            rbtEfectivo.Checked = true;
+            rbtTarjeta.Checked = false;
 
             cboCuotas.SelectedIndex = -1;
-            cboCuotas.Enabled = rbtTarjeta.Checked;
+            cboCuotas.Enabled = false;
 
             btnCalcular.Enabled = false;
 
@@ -67,7 +81,16 @@ namespace pryApellidoGimnasio
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             // So rbtTarjeta esta marcado, cboCuotas queda habilitado, sino queda deshabilitado
-            cboCuotas.Enabled = rbtTarjeta.Checked;
+            if (rbtTarjeta.Checked)
+            {
+                cboCuotas.Enabled = true;
+                cboCuotas.SelectedIndex = 0;
+            }
+            else
+            {
+                cboCuotas.Enabled = true;
+                cboCuotas.SelectedIndex = -1;
+            }
         }
 
         private void btnCalcular_Click(object sender, EventArgs e)
@@ -82,8 +105,7 @@ namespace pryApellidoGimnasio
             decimal porcentajeDescuento;
             decimal porcentajeAjuste;
             decimal total;
-            decimal valorCuota;
-
+            decimal valorCuota = 0; 
 
             nombre = txtNombre.Text;
             edad = int.Parse(txtEdad.Text);
@@ -134,6 +156,27 @@ namespace pryApellidoGimnasio
                     return;
             }
 
+            string horario;
+
+            switch (cboTurno.SelectedIndex)
+            {
+                case 0:
+                    horario = "7 a 12 h";
+                    break;
+
+                case 1:
+                    horario = "14 a 18 h";
+                    break;
+
+                case 2:
+                    horario = "18 a 23 h";
+                    break;
+
+                default:
+                    MessageBox.Show("El turno seleccionado no es valido");
+                    return;
+            }
+
             //+= -> sumarle algo a lo que ya tiene
             if (chkCasillero.Checked) precioMensual += PRECIO_CASILLERO;
 
@@ -152,11 +195,26 @@ namespace pryApellidoGimnasio
             {
                 porcentajeDescuento += DESCUENTO_MENOR;
             }
-            else if (edad > 65)
+            else
             {
-                porcentajeDescuento += DESCUENTO_MAYOR_65;
+                if (edad >= 65)
+                {
+                    porcentajeDescuento = DESCUENTO_MAYOR_65;
+                }
+                else
+                {
+                    if (chkEstudiante.Checked)
+                    {
+                        porcentajeDescuento = DESCUENTO_ESTUDIANTE;
+                    }
+                    else
+                    {
+                        porcentajeDescuento = 0;
+                    } 
+                    
+                }
             }
-
+            
             // // APLICAR DESCUENTOS SEGUN ESTUDIANTE
 
             if (chkEstudiante.Checked)
@@ -167,19 +225,82 @@ namespace pryApellidoGimnasio
             //  // APLICAR DESCUENTOS SEGUN FORMA DE PAGO (EFECTIVO O TARJETA) Y CANTIDAD DE CUOTAS
             if (rbtEfectivo.Checked)
             {
-                porcentajeDescuento += DESCUENTO_EFECTIVO;
+                porcentajeAjuste = -DESCUENTO_EFECTIVO;
+                // al ser un descuento del 10%, es tratado como negativo
             }
 
-            if (rbtTarjeta.Checked)
+            else
             {
-                if (cboCuotas.Text == "3")
-                    porcentajeAjuste += RECARGO_3_CUOTAS;
-                else if (cboCuotas.Text == "6")
-                    porcentajeAjuste += RECARGO_6_CUOTAS;
+                int cuotas = int.Parse(cboCuotas.Text);
+
+                if (cuotas == 1)
+                {
+                    porcentajeAjuste = 0;
+                }
+                else if (cuotas == 3)
+                {
+                    porcentajeAjuste = RECARGO_3_CUOTAS;
+                }
+                else if (cuotas == 6)
+                {
+                    porcentajeAjuste = RECARGO_6_CUOTAS;
+                }
             }    
 
-        }
+            // Aplicar descuento
+            decimal montoDescuento = subtotal * porcentajeDescuento;
+            decimal subtotalConDescuento = subtotal - montoDescuento;
 
+            // Aplicar recargo
+            decimal montoAjuste = subtotalConDescuento * porcentajeAjuste;
+
+            // Total final
+            total = subtotalConDescuento + montoAjuste;
+
+            string categoria = edad < 18 ? "Menor" : "Mayor";
+
+            string formaPago = rbtEfectivo.Checked
+                ? "Efectivo"
+                : "Tarjeta en " + cboCuotas.Text + " cuotas";
+
+            // Calculo de la cuota
+            int cantidadCuotas = rbtEfectivo.Checked ? 1 : int.Parse(cboCuotas.Text);
+            valorCuota = total / cantidadCuotas;
+
+           // SOCIO - tipo de dato creado
+                    
+            SOCIO socio;
+
+            socio.nombre = nombre;
+            socio.edad = edad;
+            socio.categoria = categoria;
+            socio.plan = plan;
+            socio.horario = horario;
+            socio.meses = meses;
+            socio.formaPago = formaPago;
+            socio.total = total;
+            socio.valorCuota = valorCuota;
+             
+            
+            
+
+            // Mostrar total en un mensaje
+            MessageBox.Show("Cliente: " + socio.nombre +
+                "\nEdad: " + socio.edad +
+                "\nCategoria: " + socio.categoria +
+                "\nPlan: " + socio.plan +
+                "\nHorario: " + socio.horario +
+                "\nMeses: " + socio.meses +
+                "\nForma de pago: " + socio.formaPago +
+                "\nSubtotal: $" + subtotal +
+                "\nDescuento: $" + montoDescuento +
+                "\nAjuste: $" + montoAjuste +
+                "\nTotal: $" + socio.total +
+                "\nValor de la cuota: $" + socio.valorCuota,
+                "Resumen de Inscripción"
+            );
+
+        }
         private void cboCuotas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -190,7 +311,13 @@ namespace pryApellidoGimnasio
             EstadoInicial();
         }
 
-        // falta calcular el total y mostrarlo en un mensaje :)
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            btnCalcular.Enabled = txtNombre.Text != ""&&
+                                  txtEdad.Text != " " &&
+                                  txtMeses.Text != " ";
+
+        }
     }
 
 }

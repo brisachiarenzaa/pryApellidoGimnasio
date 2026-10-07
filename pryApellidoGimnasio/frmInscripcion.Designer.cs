@@ -60,6 +60,7 @@
             this.txtEdad.Name = "txtEdad";
             this.txtEdad.Size = new System.Drawing.Size(55, 20);
             this.txtEdad.TabIndex = 0;
+            this.txtEdad.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // txtNombre
             // 
@@ -67,6 +68,7 @@
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(110, 20);
             this.txtNombre.TabIndex = 1;
+            this.txtNombre.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // lblNombre
             // 
@@ -170,6 +172,7 @@
             this.txtMeses.Name = "txtMeses";
             this.txtMeses.Size = new System.Drawing.Size(71, 20);
             this.txtMeses.TabIndex = 12;
+            this.txtMeses.TextChanged += new System.EventHandler(this.txtNombre_TextChanged);
             // 
             // chkCasillero
             // 
