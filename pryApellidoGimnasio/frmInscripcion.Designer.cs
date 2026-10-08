@@ -56,7 +56,7 @@
             // 
             // txtEdad
             // 
-            this.txtEdad.Location = new System.Drawing.Point(86, 95);
+            this.txtEdad.Location = new System.Drawing.Point(79, 83);
             this.txtEdad.Name = "txtEdad";
             this.txtEdad.Size = new System.Drawing.Size(55, 20);
             this.txtEdad.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             // txtNombre
             // 
-            this.txtNombre.Location = new System.Drawing.Point(86, 69);
+            this.txtNombre.Location = new System.Drawing.Point(79, 57);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(110, 20);
             this.txtNombre.TabIndex = 1;
@@ -73,7 +73,7 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(33, 76);
+            this.lblNombre.Location = new System.Drawing.Point(26, 64);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(47, 13);
             this.lblNombre.TabIndex = 2;
@@ -82,7 +82,7 @@
             // lblEdad
             // 
             this.lblEdad.AutoSize = true;
-            this.lblEdad.Location = new System.Drawing.Point(33, 101);
+            this.lblEdad.Location = new System.Drawing.Point(26, 89);
             this.lblEdad.Name = "lblEdad";
             this.lblEdad.Size = new System.Drawing.Size(35, 13);
             this.lblEdad.TabIndex = 3;
@@ -91,7 +91,7 @@
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Location = new System.Drawing.Point(33, 42);
+            this.lblTitulo.Location = new System.Drawing.Point(26, 30);
             this.lblTitulo.Name = "lblTitulo";
             this.lblTitulo.Size = new System.Drawing.Size(89, 13);
             this.lblTitulo.TabIndex = 4;
@@ -100,7 +100,7 @@
             // lblEstudiante
             // 
             this.lblEstudiante.AutoSize = true;
-            this.lblEstudiante.Location = new System.Drawing.Point(33, 124);
+            this.lblEstudiante.Location = new System.Drawing.Point(26, 112);
             this.lblEstudiante.Name = "lblEstudiante";
             this.lblEstudiante.Size = new System.Drawing.Size(63, 13);
             this.lblEstudiante.TabIndex = 5;
@@ -109,7 +109,7 @@
             // chkEstudiante
             // 
             this.chkEstudiante.AutoSize = true;
-            this.chkEstudiante.Location = new System.Drawing.Point(107, 123);
+            this.chkEstudiante.Location = new System.Drawing.Point(100, 111);
             this.chkEstudiante.Name = "chkEstudiante";
             this.chkEstudiante.Size = new System.Drawing.Size(15, 14);
             this.chkEstudiante.TabIndex = 6;
@@ -122,7 +122,7 @@
             "Musculacion",
             "Funcional",
             "Natacion"});
-            this.cboPlan.Location = new System.Drawing.Point(86, 159);
+            this.cboPlan.Location = new System.Drawing.Point(79, 147);
             this.cboPlan.Name = "cboPlan";
             this.cboPlan.Size = new System.Drawing.Size(107, 21);
             this.cboPlan.TabIndex = 7;
@@ -130,7 +130,7 @@
             // lblPlan
             // 
             this.lblPlan.AutoSize = true;
-            this.lblPlan.Location = new System.Drawing.Point(33, 167);
+            this.lblPlan.Location = new System.Drawing.Point(26, 155);
             this.lblPlan.Name = "lblPlan";
             this.lblPlan.Size = new System.Drawing.Size(31, 13);
             this.lblPlan.TabIndex = 8;
@@ -139,7 +139,7 @@
             // lblTurno
             // 
             this.lblTurno.AutoSize = true;
-            this.lblTurno.Location = new System.Drawing.Point(33, 193);
+            this.lblTurno.Location = new System.Drawing.Point(26, 181);
             this.lblTurno.Name = "lblTurno";
             this.lblTurno.Size = new System.Drawing.Size(38, 13);
             this.lblTurno.TabIndex = 9;
@@ -152,7 +152,7 @@
             "Mañana",
             "Tarde",
             "Noche"});
-            this.cboTurno.Location = new System.Drawing.Point(86, 186);
+            this.cboTurno.Location = new System.Drawing.Point(94, 174);
             this.cboTurno.Name = "cboTurno";
             this.cboTurno.Size = new System.Drawing.Size(107, 21);
             this.cboTurno.TabIndex = 10;
@@ -160,7 +160,7 @@
             // lblMeses
             // 
             this.lblMeses.AutoSize = true;
-            this.lblMeses.Location = new System.Drawing.Point(33, 224);
+            this.lblMeses.Location = new System.Drawing.Point(26, 212);
             this.lblMeses.Name = "lblMeses";
             this.lblMeses.Size = new System.Drawing.Size(100, 13);
             this.lblMeses.TabIndex = 11;
@@ -168,7 +168,7 @@
             // 
             // txtMeses
             // 
-            this.txtMeses.Location = new System.Drawing.Point(139, 217);
+            this.txtMeses.Location = new System.Drawing.Point(132, 205);
             this.txtMeses.Name = "txtMeses";
             this.txtMeses.Size = new System.Drawing.Size(71, 20);
             this.txtMeses.TabIndex = 12;
@@ -177,7 +177,7 @@
             // chkCasillero
             // 
             this.chkCasillero.AutoSize = true;
-            this.chkCasillero.Location = new System.Drawing.Point(147, 255);
+            this.chkCasillero.Location = new System.Drawing.Point(140, 243);
             this.chkCasillero.Name = "chkCasillero";
             this.chkCasillero.Size = new System.Drawing.Size(15, 14);
             this.chkCasillero.TabIndex = 13;
@@ -186,7 +186,7 @@
             // lblCasillero
             // 
             this.lblCasillero.AutoSize = true;
-            this.lblCasillero.Location = new System.Drawing.Point(32, 255);
+            this.lblCasillero.Location = new System.Drawing.Point(25, 243);
             this.lblCasillero.Name = "lblCasillero";
             this.lblCasillero.Size = new System.Drawing.Size(109, 13);
             this.lblCasillero.TabIndex = 14;
@@ -195,7 +195,7 @@
             // lblPago
             // 
             this.lblPago.AutoSize = true;
-            this.lblPago.Location = new System.Drawing.Point(33, 289);
+            this.lblPago.Location = new System.Drawing.Point(26, 277);
             this.lblPago.Name = "lblPago";
             this.lblPago.Size = new System.Drawing.Size(81, 13);
             this.lblPago.TabIndex = 15;
@@ -228,7 +228,7 @@
             // 
             this.gpbPago.Controls.Add(this.rbtTarjeta);
             this.gpbPago.Controls.Add(this.rbtEfectivo);
-            this.gpbPago.Location = new System.Drawing.Point(36, 314);
+            this.gpbPago.Location = new System.Drawing.Point(29, 302);
             this.gpbPago.Name = "gpbPago";
             this.gpbPago.Size = new System.Drawing.Size(161, 35);
             this.gpbPago.TabIndex = 18;
@@ -241,7 +241,7 @@
             "1",
             "3",
             "6"});
-            this.cboCuotas.Location = new System.Drawing.Point(83, 366);
+            this.cboCuotas.Location = new System.Drawing.Point(76, 354);
             this.cboCuotas.Name = "cboCuotas";
             this.cboCuotas.Size = new System.Drawing.Size(39, 21);
             this.cboCuotas.TabIndex = 19;
@@ -250,7 +250,7 @@
             // lblCuotas
             // 
             this.lblCuotas.AutoSize = true;
-            this.lblCuotas.Location = new System.Drawing.Point(33, 369);
+            this.lblCuotas.Location = new System.Drawing.Point(26, 357);
             this.lblCuotas.Name = "lblCuotas";
             this.lblCuotas.Size = new System.Drawing.Size(43, 13);
             this.lblCuotas.TabIndex = 20;
@@ -258,7 +258,7 @@
             // 
             // btnCalcular
             // 
-            this.btnCalcular.Location = new System.Drawing.Point(47, 405);
+            this.btnCalcular.Location = new System.Drawing.Point(128, 394);
             this.btnCalcular.Name = "btnCalcular";
             this.btnCalcular.Size = new System.Drawing.Size(75, 23);
             this.btnCalcular.TabIndex = 21;
@@ -268,7 +268,7 @@
             // 
             // btnLimpiar
             // 
-            this.btnLimpiar.Location = new System.Drawing.Point(158, 405);
+            this.btnLimpiar.Location = new System.Drawing.Point(51, 394);
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(75, 23);
             this.btnLimpiar.TabIndex = 22;
@@ -280,7 +280,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 473);
+            this.ClientSize = new System.Drawing.Size(245, 452);
             this.Controls.Add(this.btnLimpiar);
             this.Controls.Add(this.btnCalcular);
             this.Controls.Add(this.lblCuotas);

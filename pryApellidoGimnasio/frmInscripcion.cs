@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,9 +43,11 @@ namespace pryApellidoGimnasio
             public string formaPago;
             public decimal total;
             public decimal valorCuota;
-
         }
 
+        string[] vecSocio = new string[3]; //declara un array de 1 dimension
+        //inicializado en 3 elementos (del 0 al 2)
+       
 
         public frmInscripcion()
         {
@@ -207,11 +210,12 @@ namespace pryApellidoGimnasio
                 else
                 {
                     porcentajeDescuento = 0;
-                }    
+                }
+            }
+            
+            // APLICAR DESCUENTOS SEGUN ESTUDIANTE
 
-                // APLICAR DESCUENTOS SEGUN ESTUDIANTE
-
-                if (chkEstudiante.Checked)
+            if (chkEstudiante.Checked)
                 {
                     porcentajeDescuento += DESCUENTO_ESTUDIANTE;
                 }
@@ -274,8 +278,25 @@ namespace pryApellidoGimnasio
                 socio.total = total;
                 socio.valorCuota = valorCuota;
 
-                // Mostrar total en un mensaje
-                MessageBox.Show("Cliente: " + socio.nombre +
+
+            //grabar en un array
+            vecSocio[0] = socio.nombre; //concatenar lo que tengo en el struct
+            //recuerden que el indice tiene que incrementarse con cada clic
+            //y que tiene un tope, 3 elementos (no permitir grabar màs)
+
+            //grabar en un txt
+            StreamWriter swDatosGimnasio = new StreamWriter("BaseDatos.txt", true);
+
+            swDatosGimnasio.WriteLine(socio.nombre);
+            swDatosGimnasio.WriteLine(socio.plan);
+            swDatosGimnasio.WriteLine(socio.valorCuota);
+            swDatosGimnasio.WriteLine(socio.total);
+
+            swDatosGimnasio.Close();
+
+            // Mostrar total en un mensaje
+
+            MessageBox.Show("Cliente: " + socio.nombre +
                     "\nEdad: " + socio.edad +
                     "\nCategoria: " + socio.categoria +
                     "\nPlan: " + socio.plan +
@@ -291,7 +312,6 @@ namespace pryApellidoGimnasio
                 );
             }
 
-        }
         private void cboCuotas_SelectedIndexChanged(object sender, EventArgs e)
         {
 
