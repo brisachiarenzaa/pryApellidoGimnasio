@@ -60,8 +60,8 @@ namespace pryApellidoGimnasio
             txtEdad.Text = "";
             chkEstudiante.Checked = false;
 
-            cboPlan.SelectedIndex = 0;
-            cboTurno.SelectedIndex = 0;
+            cboPlan.SelectedIndex = -1;
+            cboTurno.SelectedIndex = -1;
 
             txtMeses.Text = "1";
             chkCasillero.Checked = false;
@@ -90,12 +90,12 @@ namespace pryApellidoGimnasio
             if (rbtTarjeta.Checked)
             {
                 cboCuotas.Enabled = true;
-                cboCuotas.SelectedIndex = 0;
+                cboCuotas.SelectedIndex = -1;
             }
             else
             {
-                cboCuotas.Enabled = true;
                 cboCuotas.SelectedIndex = -1;
+                cboCuotas.Enabled = false;
             }
         }
 
@@ -229,9 +229,15 @@ namespace pryApellidoGimnasio
 
                 else
                 {
+                    if (cboCuotas.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Debe seleccionar la cantidad de cuotas");
+                    return;
+                }
+                    
                     int cuotas = int.Parse(cboCuotas.Text);
 
-                    if (cuotas == 1)
+                if (cuotas == 1)
                     {
                         porcentajeAjuste = 0;
                     }
@@ -303,14 +309,17 @@ namespace pryApellidoGimnasio
                     "\nHorario: " + socio.horario +
                     "\nMeses: " + socio.meses +
                     "\nForma de pago: " + socio.formaPago +
-                    "\nSubtotal: $" + subtotal +
-                    "\nDescuento: $" + montoDescuento +
-                    "\nAjuste: $" + montoAjuste +
-                    "\nTotal: $" + socio.total +
-                    "\nValor de la cuota: $" + socio.valorCuota,
+                    "\nSubtotal: $" + subtotal.ToString("F2") +
+                    "\nDescuento: $" + montoDescuento.ToString("F2") +
+                    "\nAjuste: $" + montoAjuste.ToString("F2") +
+                    "\nTotal: $" + socio.total.ToString("F2") +
+                    "\nValor de la cuota: $" + socio.valorCuota.ToString("F2"),
                     "Resumen de Inscripción"
                 );
-            }
+
+            // To.String = metodo para convertir un valor en texto (de string a decimal, de int a string, etc)
+            // To.String("F2") -> para mostrar 2 decimales en el total y valor de la cuota
+        }
 
         private void cboCuotas_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -327,6 +336,11 @@ namespace pryApellidoGimnasio
             btnCalcular.Enabled = txtNombre.Text != ""&&
                                   txtEdad.Text != "" &&
                                   txtMeses.Text != "";
+
+        }
+
+        private void cboPlan_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
