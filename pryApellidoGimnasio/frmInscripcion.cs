@@ -45,7 +45,9 @@ namespace pryApellidoGimnasio
             public decimal valorCuota;
         }
 
-        string[] vecSocio = new string[3]; //declara un array de 1 dimension
+        string[] vecSocio = new string[3];
+        int indice = 0;
+        //declara un array de 1 dimension
         //inicializado en 3 elementos (del 0 al 2)
        
 
@@ -284,20 +286,35 @@ namespace pryApellidoGimnasio
                 socio.total = total;
                 socio.valorCuota = valorCuota;
 
+            if (indice < vecSocio.Length)
+            {
+                vecSocio[indice] = socio.nombre + " - " + socio.edad + " - " + socio.categoria + " - " + socio.plan + " - " +
+                socio.horario + " - " + socio.meses + " - " + socio.formaPago + " - " + socio.total + " - " + socio.valorCuota;
+                indice++;
+            }
+            else
+            {
+                MessageBox.Show("No se pueden grabar mas socios");
+                return;
+            }
 
             //grabar en un array
-            vecSocio[0] = socio.nombre; //concatenar lo que tengo en el struct
+            //concatenar lo que tengo en el struct
             //recuerden que el indice tiene que incrementarse con cada clic
-            //y que tiene un tope, 3 elementos (no permitir grabar màs)
+            //y que tiene un tope: 3 elementos (cuando cumple, no permitir grabar màs)
 
             //grabar en un txt
+
+            //streamwriter: abre o crea el archivo BaseDatos.txt. El true significa: agregar al final
             StreamWriter swDatosGimnasio = new StreamWriter("BaseDatos.txt", true);
 
+            //writeline: linea del txt
             swDatosGimnasio.WriteLine(socio.nombre);
             swDatosGimnasio.WriteLine(socio.plan);
             swDatosGimnasio.WriteLine(socio.valorCuota);
             swDatosGimnasio.WriteLine(socio.total);
 
+            //cierra el archivo y confirma que se guarde todo
             swDatosGimnasio.Close();
 
             // Mostrar total en un mensaje
@@ -342,6 +359,23 @@ namespace pryApellidoGimnasio
         private void cboPlan_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCalc_Click(object sender, EventArgs e)
+        {
+            if (indice == 0)
+            {
+                MessageBox.Show("No hay socios cargados");
+                return;
+            }
+
+            string listado = "";
+            for (int i = 0; i < indice; i++)
+            {
+                listado += "Socio " + (i + 1) + ": " + vecSocio[i] + "\n";
+            }
+            MessageBox.Show(listado, "Listado de socios");
+                
         }
     }
 
