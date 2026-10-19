@@ -365,7 +365,7 @@ namespace pryApellidoGimnasio
         {
             if (indice == 0)
             {
-                MessageBox.Show("No hay socios cargados");
+                MessageBox.Show("No hay socios cargados, intentelo de nuevo");
                 return;
             }
 
